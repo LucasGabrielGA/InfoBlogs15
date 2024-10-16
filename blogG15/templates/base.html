@@ -32,8 +32,11 @@
                     <li><a href="#">Acerca de Nosotros</a></li>
                     <li><a href="{% url 'apps.posts:posts' %}">Posts</a></li>
                     <li><a href="{% url 'apps.contacto:contacto' %}">Contactanos</a></li>
-                    {% if user.is_athenticated %}
-                        <li><a href="{% url 'apps.usuario:logout' %}">Logout</a></li>
+                    {% if user.is_authenticated %}
+                        <form method="POST" action="{% url 'apps.usuario:logout' %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Logout">
+                        </form>
                     {% else %}
                         <li><a href="{% url 'apps.usuario:login' %}">Login</a></li>
                     {% endif %}

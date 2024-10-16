@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load colaborador_tags %}
 
 
 {% block contenido %}
+<div class="container-fluid" style="margin: 200px;">
+    {% if user.is_superuser or request.user|has_group:"Colaborador" %}
+        <div class="container-fluid" style="margin-top: 300px;">
+            <a id="boton_post" href="{% url 'apps.posts:crear_post' %}">Crear nuevo post</a>
+        </div>
+    {% endif %}
+
     {% for i in posts %}
         <br>
         <h1>{{ i.titulo }}</h1>
@@ -18,4 +27,5 @@
         {% empty %}
         <h1>No hay posts para mostrar</h1>
     {% endfor %}
+</div>
 {% endblock %}

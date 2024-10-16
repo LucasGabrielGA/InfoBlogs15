@@ -35,8 +35,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'infoblogs15@gmail.com'
 EMAIL_HOST_PASSWORD = 'rwey gvaq amdu pinz'
+DEFAULT_FROM_EMAIL='RV15 Soporte <no-reply@rv15.0>' 
 
-SITE_NAME = 'InfoBlogs'
+SITE_NAME = 'RV15.0' #-> Establece el nombre del Sitio
+SITE_ID=1 #->
 
 # Application definition
 
@@ -47,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
+    'django.contrib.sites', #-> Para poder crear en la base de datos la tabla "Sitios" para cambiar el nombre del dominio
     'apps.posts',
     'apps.contacto',
     'apps.usuario',
