@@ -1,4 +1,5 @@
 {% load static %}
+{% load colaborador_tags %}
 
 <!doctype html>
 <html lang="es-ar">
@@ -32,14 +33,31 @@
                     <li><a href="#">Acerca de Nosotros</a></li>
                     <li><a href="{% url 'apps.posts:posts' %}">Posts</a></li>
                     <li><a href="{% url 'apps.contacto:contacto' %}">Contactanos</a></li>
-                    {% if user.is_authenticated %}
-                        <form method="POST" action="{% url 'apps.usuario:logout' %}">
-                            {% csrf_token %}
-                            <input type="submit" value="Logout">
-                        </form>
-                    {% else %}
-                        <li><a href="{% url 'apps.usuario:login' %}">Login</a></li>
-                    {% endif %}
+                    <div class="dropdown">
+                        {% if user.is_authenticated %}
+                            <form method="POST" action="{% url 'apps.usuario:logout' %}">
+                                {% csrf_token %}
+                                <input type="submit" value="{{ user.username }}: Logout">
+                            </form>
+                        {% else %}
+                            <li><a href="{% url 'apps.usuario:login' %}">Login</a></li>
+                        {% endif %}
+                        <div class="dropdown-content">
+                            <table>
+                                <tr>
+                                    {% if user.is_superuser or request.user|has_group:"Colaborador" %}
+                                        <td><a href="{% url 'apps.usuario:usuario_list' %}">Lista de usuarios</a></td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'apps.posts:categoria_list' %}">Lista de categorías</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'apps.posts:posts' %}">Lista de posts</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </ul>
             </nav>
 

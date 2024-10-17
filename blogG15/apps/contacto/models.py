@@ -8,7 +8,7 @@ class Contacto(models.Model):
     email = models.EmailField()
     asunto = models.CharField(max_length=50)
     mensaje = models.TextField()
-    fecha = models.DateField(default=timezone.now)
+    fecha = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.nombre_apellido

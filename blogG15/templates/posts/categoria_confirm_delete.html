@@ -5,15 +5,13 @@
 <center>
     {% if user.is_superuser or request.user|has_group:"Colaborador" %}
         <div class="container-fluid" style="margin: 200px;">
-            <h1>Agregar nueva categoría</h1>
+            <h1>Eliminar Categoría</h1>
+            <p>¿Estás seguro que quieres eliminar la categoría "{{ object.nombre }}"?</p>
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Agregar">
+                <input type="submit" value="Sí, eliminar">
+                <a style="color: black;" href="{% url 'apps.posts:categoria_list' %}">No, cancelar</a>
             </form>
-            <div class="container-fluid" style="margin-top: 300px;">
-                <a id="boton_post" href="{% url 'apps.posts:categoria_list' %}">Listar todas las categorías</a>
-            </div>
         </div>
     {% else %}
         <div class="container-fluid" style="margin: 300px;">

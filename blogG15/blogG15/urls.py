@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import index #Importamos desde views la función index
+from .views import index, pagina_404 #Importamos desde views la función index
 
 #-> librerías para mostrar las imágenes de los posts (indica la ruta de la carpeta "media")
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
+
+handler404 = pagina_404
 
 urlpatterns = [
     path('admin/', admin.site.urls),

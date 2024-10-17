@@ -64,10 +64,11 @@ class Post(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     texto = models.TextField(null=False)
     activo = models.BooleanField(default=True)
-    usuario_FK = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    #usuario_FK = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, default='sin categoría')
     imagen = models.ImageField(null=True, blank=True, upload_to='media', default='static/post_default.png')
     publicado = models.DateTimeField(default=timezone.now)
+    autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     #administrado = models.ManyToManyField(Colaborador, blank=True)
 
     class Meta:
