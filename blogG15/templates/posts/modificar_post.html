@@ -2,7 +2,7 @@
 
 {% block contenido %}
 <center>
-    <div class="container-fluid" style="margin: 30px;">
+    <div class="container-fluid">
         <a id="boton_post" 
         href="{% url 'apps.posts:crear_categoria' %}?next={% url 'apps.posts:post_update' pk=object.id %}">
         Crear nueva categoría</a>

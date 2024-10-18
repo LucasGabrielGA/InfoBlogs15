@@ -4,7 +4,7 @@
 {% block contenido %}
 
     <center>
-        <form method="POST" style="margin: 200px;">
+        <form method="POST"">
             <h1>Formulario de Contacto</h1>
             <br>
             {% if messages %}
@@ -14,7 +14,7 @@
             {% endif %}
             <table>
                 {% csrf_token %}
-                {{ form }}
+                {{ form.as_p }}
             </table>
             <input type="submit" value="Enviar">
         </form>

@@ -4,7 +4,7 @@
 {% block contenido %}
 <center>
     {% if user.is_superuser or request.user|has_group:"Colaborador" %}
-        <div class="container-fluid" style="margin: 200px;">
+        <div class="container-fluid">
             <h1>Eliminar Categoría</h1>
             <p>¿Estás seguro que quieres eliminar la categoría "{{ object.nombre }}"?</p>
             <form method="post">

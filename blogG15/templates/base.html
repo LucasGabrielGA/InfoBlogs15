@@ -4,85 +4,139 @@
 <!doctype html>
 <html lang="es-ar">
     <head>
-        <title>{% block title %} InfoBlogs {% endblock title %}</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <title>{% block title %}RV15.0{% endblock title %}</title>
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
+        <!-- Meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Blog de RV15.0">
+        <meta name="author" content="RV15.0">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
+
+        <!-- Bootstrap CSS -->
+        <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        
+        <!-- Additional CSS Files -->
+        <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/templatemo-stand-blog.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
     </head>
 
     <body>
-        <header>
-            <a class="flex-sm-fill text-sm-center nav-link active" href="#">
-                <img src="{% static 'img/infoblogs-logo.jpg' %}" style="max-width: 300px; margin: 30px;">
-            </a>
+        <!-- Preloader -->
+        <div id="preloader">
+            <div class="jumper">
+                <div></div><div></div><div></div>
+            </div>
+        </div>
 
-            <nav class="nav nav-pills flex-column flex-sm-row">
-                <ul class="nav-links">
-                    <li><a href="{% url 'index' %}">Inicio</a></li>
-                    <li><a href="#">Acerca de Nosotros</a></li>
-                    <li><a href="{% url 'apps.posts:posts' %}">Posts</a></li>
-                    <li><a href="{% url 'apps.contacto:contacto' %}">Contactanos</a></li>
-                    <div class="dropdown">
-                        {% if user.is_authenticated %}
-                            <form method="POST" action="{% url 'apps.usuario:logout' %}">
-                                {% csrf_token %}
-                                <input type="submit" value="{{ user.username }}: Logout">
-                            </form>
-                        {% else %}
-                            <li><a href="{% url 'apps.usuario:login' %}">Login</a></li>
-                        {% endif %}
-                        <div class="dropdown-content">
-                            <table>
-                                <tr>
+        <!-- Header -->
+        <header>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        <h2>RV15.0 Blogs<em>...</em></h2>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Acerca De</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'apps.posts:posts' %}">Posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'apps.contacto:contacto' %}">Contáctanos</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                     {% if user.is_superuser or request.user|has_group:"Colaborador" %}
-                                        <td><a href="{% url 'apps.usuario:usuario_list' %}">Lista de usuarios</a></td>
+                                        <li><a class="dropdown-item" href="{% url 'apps.usuario:usuario_list' %}">Lista de usuarios</a></li>
                                     {% endif %}
-                                </tr>
-                                <tr>
-                                    <td><a href="{% url 'apps.posts:categoria_list' %}">Lista de categorías</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="{% url 'apps.posts:posts' %}">Lista de posts</a></td>
-                                </tr>
-                            </table>
+                                    <li><a class="dropdown-item" href="{% url 'apps.posts:categoria_list' %}">Lista de categorías</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'apps.posts:posts' %}">Lista de posts</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="POST" action="{% url 'apps.usuario:logout' %}">
+                                            {% csrf_token %}
+                                            <input type="submit" class="dropdown-item" value="Cerrar sesión">
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'apps.usuario:login' %}">Iniciar sesión</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+         <section>
+            {% block contenido %}
+            {% endblock %}
+         </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="social-icons">
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Twitter (X)</a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <p>&copy; 2024 RV15.0 Co. | Diseño: <a href="https://campus-informatorio.chaco.gob.ar/login/index.php" target="_blank" rel="noopener noreferrer">Blog</a></p>
                         </div>
                     </div>
-                </ul>
-            </nav>
-
-            {% block contenido %}
-
-            {% endblock %}
-            
-        </header>
-        <main></main>
-        <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
-            <div class="container text-center">
-                <small>Copyright &copy; Your Website</small>
+                </div>
             </div>
         </footer>
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+        <!-- Static JS -->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+        <script src="{% static 'assets/js/owl.js' %}"></script>
+        <script src="{% static 'assets/js/slick.js' %}"></script>
+        <script src="{% static 'assets/js/isotope.js' %}"></script>
+        <script src="{% static 'assets/js/accordions.js' %}"></script>
+
+        <!-- Inline JavaScript -->
+        <script>
+            const cleared = [0, 0, 0];
+            function clearField(t) {
+                if (!cleared[t.id]) {
+                    cleared[t.id] = 1;
+                    t.value = '';
+                    t.style.color = '#fff';
+                }
+            }
+        </script>
     </body>
 </html>

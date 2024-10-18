@@ -15,7 +15,7 @@
     <br>
     <h6>{{ posts.texto }}</h6>
     <img src="{{ posts.imagen.url }}" alt="">
-    <li>Subido por {{ posts.usuario_FK }}</li>
+    <li>Subido por {{ posts.autor }}</li>
 
     {% if user.is_superuser or request.user|has_group:"Colaborador" %}
         <div class="container-fluid" style="margin-top: 30px;">

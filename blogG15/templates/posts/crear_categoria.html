@@ -4,7 +4,7 @@
 {% block contenido %}
 <center>
     {% if user.is_superuser or request.user|has_group:"Colaborador" %}
-        <div class="container-fluid" style="margin: 200px;">
+        <div class="container-fluid">
             <h1>Agregar nueva categoría</h1>
             <form method="post">
                 {% csrf_token %}

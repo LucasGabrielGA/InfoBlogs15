@@ -3,8 +3,6 @@ from .forms import ContactoForm
 from django.contrib import messages
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
 
 # Create your views here.
 
